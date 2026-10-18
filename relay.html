@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><title>relay</title><body>relay
+<script>
+(async()=>{
+ const p=new URLSearchParams(location.search);
+ const folder=p.get('f'); const names=(p.get('n')||'01,02,03').split(',');
+ const files=[];
+ for(const n of names){const r=await fetch(folder+'/'+n+'.jpg'); if(r.ok){const b=await r.blob(); files.push(new File([b],folder+'-'+n+'.jpg',{type:'image/jpeg'}));}}
+ const target=window.opener||window.parent;
+ target.postMessage({type:'relay-photos',files},'*');
+ document.body.textContent='sent '+files.length;
+ setTimeout(()=>window.close(),1500);
+})();
+</script>
