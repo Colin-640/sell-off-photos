@@ -8,3 +8,7 @@ window.__D=async(prefs)=>{prefs=prefs||{}; const sl=ms=>new Promise(r=>setTimeou
   l=await __list(); }
  return (log.join(' ; ')+' ## '+l.slice(0,130)).replace(/[?&=]/g,' ');};
 'run ok';
+window.__cat1=async()=>{const b=document.querySelector('button[aria-label="Edit Item category"]'); b.scrollIntoView({block:'center'}); b.click(); await new Promise(r=>setTimeout(r,1500)); const i=[...document.querySelectorAll('input')].find(i=>i.offsetParent&&/Enter a value/i.test(i.placeholder||'')); i?.focus(); return !!i;};
+window.__catlist=()=>[...document.querySelectorAll('label,span,div')].filter(e=>e.offsetParent&&e.children.length===0&&/ > /.test(e.innerText)).map(e=>e.innerText.trim()).slice(0,10).join(' || ');
+window.__cat2=async(path)=>{const lab=[...document.querySelectorAll('label,span,div')].filter(e=>e.offsetParent&&e.children.length===0&&e.innerText.trim()===path); if(!lab.length) return 'not found'; lab[0].click(); await new Promise(r=>setTimeout(r,800)); [...document.querySelectorAll('button')].find(b=>b.offsetParent&&b.innerText.trim()==='Done')?.click(); await new Promise(r=>setTimeout(r,3000)); __open('Brand'); return (document.body.innerText.match(/Edit\n([^\n]*)\n(in [^\n]*)/)||[''])[0].replace(/\n/g,' > ');};
+'run ok';
